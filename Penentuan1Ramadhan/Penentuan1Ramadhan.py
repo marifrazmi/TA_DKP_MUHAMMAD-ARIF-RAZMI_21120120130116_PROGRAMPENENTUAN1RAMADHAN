@@ -7,20 +7,18 @@ class hapus:
             eror.destroy()
             tombolrefresh['state']=DISABLED
             gas['state']=NORMAL
+            pilih['state']="readonly"
         elif jawaban :
             jawaban.destroy()
             tombolrefresh['state']=DISABLED
             gas['state']=NORMAL
-            if eror:
-                eror.destroy()
-                tombolrefresh['state']=DISABLED
-                gas['state']=NORMAL
-            else:
-                pass
             
         else:
             pass
- 
+
+def exit():
+    top.destroy()
+        
 def hilangin():
     hapus.restart()
 
@@ -29,11 +27,13 @@ def submit():
         global eror
         eror = Label(top, text="ERROR!", bg='black', fg='red',  font=('Times New Roman',12,'bold'))
         eror.place(x=170,y=110)
-        tombolrefresh['state']=DISABLED
+        tombolrefresh['state']=NORMAL
+        gas['state']=DISABLED
+        pilih['state']=DISABLED
     else :
         global jawaban
         jawaban = Label(top, text="1 Ramadhan " + Year.get() + " H bertepatan dengan " + hitung(), font=('Times New Roman',12,'bold'))
-        jawaban.place(x=8,y=112)
+        jawaban.place(x=13,y=112)
         tombolrefresh['state']=NORMAL
         gas['state']=DISABLED
 
@@ -138,6 +138,7 @@ top = Tk()
 top.geometry("400x150")
 top.title("Program Penentuan awal Ramadhan")
 
+#label
 bg = PhotoImage(file="D:\File Razmi\Sekolah\Kuliah\Semester\Semester 2\Prak. DKP\Tugas Akhir\part 1\\212.png")
 monas = Label(top, image=bg)
 tmii = bg.subsample(1,1)
@@ -155,12 +156,14 @@ tahun = Label(text = "Tahun :",bg='white', font=('Times New Roman',12)).place(x=
 hijriyah = Label(text = "Hijriyah",bg='white', font=('Times New Roman',12)).place(x=240, y=52)
 judul = Label(text = "PROGRAM PENENTUAN AWAL RAMADHAN", fg='white' ,bg='green', font=('Times New Roman', 12,'bold')).place(x=50, y=10)
 
+#combobox
 Year = StringVar(value='') 
 pilih = ttk.Combobox(top, width = 6, textvariable = Year, state="readonly")
 pilih.place(x=175, y=55)
 pilih['values'] = ('1440','1441','1442','1443','1444','1445','1446','1447','1448','1449','1450')
 
-gas= Button(top, text="إرسال" , command=submit)
+#button
+gas= Button(top, text="إرسال" , command=submit, borderwidth=3)
 gas.pack()
 gas.place(x=185,y=80)
 
@@ -171,5 +174,11 @@ tmiii = refresh.subsample(25,25)
 tombolrefresh.configure(image=tmiii )
 tombolrefresh.place(x=300, y=55)
 tombolrefresh['state']=DISABLED
+
+fotos= PhotoImage(file="D:\\keluar.png")
+keluar = Button(top, image=fotos, bg='white', command = exit, borderwidth=0)
+tmiiii = fotos.subsample(25,25)
+keluar.configure(image=tmiiii )
+keluar.place(x=360, y=49)
 
 top.mainloop() 
